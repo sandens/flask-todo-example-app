@@ -1,0 +1,57 @@
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "base.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+  <div class="container">
+  {%- with messages = get_flashed_messages(with_categories=True) %}
+  {%- if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {{utils.flashed_messages(messages)}}
+      </div>
+    </div>
+  {%- endif %}
+  {%- endwith %}
+    <div class="jumbotron" style="background-color:#3E6ECF;color:#FFF">
+      <h1>Welcome to Todos</h1>
+     </div> 
+        <h2>Add a Todo</h2>
+        <form method="POST" action="/">
+         {{ form.hidden_tag() }}
+         {{ form.name(size=50) }}
+        <input type="submit" value="Go">
+        </form>
+     </div>
+    </p></p>   
+    <div class="container">
+      {% if not todos %}
+        Hmmm .. You need something to do.
+      {% endif  %}
+      
+      {% if todos %}
+      <h2> All my todos </h2>
+      <table class="table table-striped" width="100px">
+      <tbody>
+      {% for todo in todos %}
+         <tr><td class="todo_item">{{todo.name}}</td><td style="text-width:3em">
+         <form name="">
+         <button type="button" class="close" aria-label="Close" onclick="delete_todo({{todo.id}})">
+         <span aria-hidden="true" style="color:red">×</span></button>
+         </form> 
+          </td></tr>
+       {% endfor %}
+       </tbody>
+       </table> 
+   {% endif %}
+   </div>
+{%- endblock %}

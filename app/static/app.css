@@ -1,0 +1,8 @@
+.todo_item {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+}
+
+.todo_close {
+    color: red;
+}
