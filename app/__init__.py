@@ -42,7 +42,7 @@ def create_app():
     app.register_blueprint(frontend)
      
     db.init_app(app) 
-    #init_db()
+    init_db()
 
     with app.app_context():
         db.create_all()
